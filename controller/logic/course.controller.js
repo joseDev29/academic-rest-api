@@ -69,7 +69,7 @@ exports.getAll = (req, res, next) => {
 
 exports.getByCode = (req, res, next) => {
     
-    periodtDto.getByCode({code: req.params.code}, (err, data) => {
+    coursetDto.getByCode({code: req.params.code}, (err, data) => {
         if(err){
             return res.status(400).json(
                 {

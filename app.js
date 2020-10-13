@@ -23,6 +23,14 @@ app.get("/", (req, res, next) => {
     res.send("Welcome to academic rest api")
 });
 
+//User Routes Loading
+const userRoutes = require("./routes/user.routes");
+userRoutes(app);
+
+//Token middleware
+tkFn = require("./middleware/verifyToken");
+app.use(tkFn);
+
 //Student Routes Loading
 const studentRoutes = require("./routes/student.routes");
 studentRoutes(app);

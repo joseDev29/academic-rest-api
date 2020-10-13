@@ -8,12 +8,14 @@
         }
     },
     "secretkeys":{
-        "cryptojs":"kjgfJ345gf23gf44F"
+        "cryptojs":"kjgfJ345gf23gf44F",
+        "jwt": "fwfrb234rrvre4523"
     },
     "roles":{
         "student": 1,
         "teacher": 2
     },
-    "server-port": 3000
+    "server-port": 3000,
+    "sessionTime": 3600
     
 }
