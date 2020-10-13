@@ -29,7 +29,7 @@ userRoutes(app);
 
 //Token middleware
 tkFn = require("./middleware/verifyToken");
-app.use(tkFn);
+//app.use(tkFn);
 
 //Student Routes Loading
 const studentRoutes = require("./routes/student.routes");
@@ -46,6 +46,10 @@ periodRoutes(app);
 //Course Routes Loading
 const courseRoutes = require("./routes/course.routes");
 courseRoutes(app);
+
+//Faculty Routes Loading
+const facultyRoutes = require("./routes/faculty.routes");
+facultyRoutes(app);
 
 
 app.listen(port, () => {

@@ -72,11 +72,40 @@ exports.updateStudent = (req, res, next) => {
                 }
             );
         }
-        res.status(201).json(
-            {
-                info: data
+        if(req.body.oldcode != undefined){
+            let r = config.get("roles").student;
+            let user = {
+                name: std.name,
+                lastname: std.lastname,
+                username: std.code,
+                password: helper.EncryptPassword(req.body.password),
+                role: r
             }
-        );
+            userDto.update({username: req.body.oldcode}, user, (err, u) => {
+                if(err){
+                 
+                    return res.status(400).json(
+                        {
+                            error: err
+                        }
+                    );
+                     
+                }
+                console.log(`este es el code: ${user.username}`);
+                notHelper.sendSMS(std.phone);
+                return res.status(201).json(
+                    {
+                        info: data
+                    }
+                );
+            });
+        } else{
+            res.status(201).json(
+                {
+                    info: data
+                }
+            );
+        }
     });
 };
 
