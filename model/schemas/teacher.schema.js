@@ -30,9 +30,10 @@ const teacherSchema = new mongoose.Schema({
         type:"String",
         required: true,
     },
-    department: {
-        type:"String",
-        required: true,
+    department_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "coll_department",
+        required: true
     }
 });
 

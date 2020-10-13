@@ -15,7 +15,7 @@ exports.createTeacher = (req, res, next) => {
         email: req.body.email,
         phone: req.body.phone,
         office: req.body.office,
-        department: req.body.department
+        department_id: req.body.department_id
     };
     teacherDto.create(teacher, (err, data) => {
         if(err){
@@ -64,7 +64,7 @@ exports.updateTeacher = (req, res, next) => {
         email: req.body.email,
         phone: req.body.phone,
         office: req.body.office,
-        department: req.body.department
+        department_id: req.body.department_id
     };
     teacherDto.update({_id: req.body.id}, teacher, (err, data) => {
         if(err){
