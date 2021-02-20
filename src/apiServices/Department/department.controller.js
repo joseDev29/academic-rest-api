@@ -1,0 +1,80 @@
+/** Dto */
+const departmentDto = require("./department.dto");
+
+exports.createDepartment = (req, res, next) => {
+  let department = {
+    faculty_id: req.body.faculty_id,
+    code: req.body.code,
+    name: req.body.name,
+    director: req.body.director,
+  };
+  departmentDto.create(department, (err, data) => {
+    if (err) {
+      return res.status(400).json({
+        error: err,
+      });
+    }
+    res.status(201).json({
+      info: data,
+    });
+  });
+};
+
+exports.updateDepartment = (req, res, next) => {
+  let department = {
+    faculty_id: req.body.faculty_id,
+    code: req.body.code,
+    name: req.body.name,
+    director: req.body.director,
+  };
+  departmentDto.update({ _id: req.body.id }, department, (err, data) => {
+    if (err) {
+      return res.status(400).json({
+        error: err,
+      });
+    }
+    res.status(201).json({
+      info: data,
+    });
+  });
+};
+
+exports.getAll = (req, res, next) => {
+  departmentDto.getAll({}, (err, data) => {
+    if (err) {
+      return res.status(400).json({
+        error: err,
+      });
+    }
+    res.status(200).json({
+      info: data,
+    });
+  });
+};
+
+exports.getByCode = (req, res, next) => {
+  departmentDto.getByCode({ code: req.params.code }, (err, data) => {
+    if (err) {
+      return res.status(400).json({
+        error: err,
+      });
+    }
+    res.status(200).json({
+      info: data,
+    });
+  });
+};
+
+exports.deleteDepartment = (req, res, next) => {
+  departmentDto.delete({ _id: req.body.id }, (err, data) => {
+    if (err) {
+      return res.status(400).json({
+        error: err,
+      });
+    }
+    res.status(200).json({
+      message: "Department deleted",
+      info: data,
+    });
+  });
+};
