@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Academic REST API</title>
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/apiServices.css" />
+  </head>
+  <body>
+    <h1 class="title">Welcome to Academic REST API</h1>
+
+    <div class="user-admin" id="userAdminData">
+      <button type="button" id="logOutBtn" class="logout-btn">Logout</button>
+    </div>
+
+    <script>
+      document.getElementById("userAdminData").insertAdjacentHTML(
+        "beforeend",
+        `
+          <p id="userAdminUsername" class="user-admin-username">user: <strong>${window.localStorage.getItem(
+            "username"
+          )}</strong></p>
+        `
+      );
+    </script>
+
+    <section class="service">
+      <h2 class="subtitle">Period</h2>
+
+      <div class="service-container">
+        <div class="service-left">
+          <form class="service-form">
+            <h3 class="service-title">Create</h3>
+
+            <label class="service-label">Year</label>
+            <input type="number" id="createPeriodYear" class="service-input" />
+
+            <label class="service-label">Number</label>
+            <input
+              type="number"
+              id="createPeriodNumber"
+              class="service-input"
+            />
+
+            <label class="service-label">Current</label>
+            <input
+              type="checkbox"
+              id="createPeriodCurrent"
+              class="service-checkbox"
+            />
+
+            <button id="createPeriodBtn" class="service-btn">Create</button>
+          </form>
+
+          <form class="service-form">
+            <h3 class="service-title">Update</h3>
+
+            <label class="service-label">Id</label>
+            <input type="text" id="updatePeriodId" class="service-input" />
+
+            <label class="service-label">Year</label>
+            <input type="number" id="updatePeriodYear" class="service-input" />
+
+            <label class="service-label">Number</label>
+            <input
+              type="number"
+              id="updatePeriodNumber"
+              class="service-input"
+            />
+
+            <label class="service-label">Current</label>
+            <input
+              type="checkbox"
+              id="updatePeriodCurrent"
+              class="service-checkbox"
+            />
+
+            <button id="updatePeriodBtn" class="service-btn">Update</button>
+          </form>
+          <form class="service-form">
+            <h3 class="service-title">Delete</h3>
+
+            <label class="service-label">Id</label>
+            <input type="text" id="deletePeriodId" class="service-input" />
+
+            <button type="submit" id="deletePeriodBtn" class="service-btn">
+              Delete
+            </button>
+          </form>
+
+          <form class="service-form">
+            <h3 class="service-title">Get By Id</h3>
+            <label class="service-label">Id</label>
+            <input type="text" id="getByIdPeriod" class="service-input" />
+            <button type="submit" id="getByIdPeriodBtn" class="service-btn">
+              Get by id
+            </button>
+          </form>
+        </div>
+
+        <div class="service-right">
+          <button class="btn-only" id="getAllPeriodBtn">Get All</button>
+          <div class="service-response" id="responsePeriod"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="service">
+      <h2 class="subtitle">Faculty</h2>
+
+      <div class="service-container">
+        <div class="service-left">
+          <form class="service-form">
+            <h3 class="service-title">Create</h3>
+
+            <label class="service-label">Code</label>
+            <input type="text" id="createFacultyCode" class="service-input" />
+
+            <label class="service-label">Name</label>
+            <input type="text" id="createFacultyName" class="service-input" />
+
+            <label class="service-label">Dean</label>
+            <input type="text" id="createFacultyDean" class="service-input" />
+
+            <button id="createFacultyBtn" class="service-btn">Create</button>
+          </form>
+
+          <form class="service-form">
+            <h3 class="service-title">Update</h3>
+
+            <label class="service-label">Id</label>
+            <input type="text" id="updateFacultyId" class="service-input" />
+
+            <label class="service-label">Code</label>
+            <input type="text" id="updateFacultyCode" class="service-input" />
+
+            <label class="service-label">Name</label>
+            <input type="text" id="updateFacultyName" class="service-input" />
+
+            <label class="service-label">Dean</label>
+            <input type="text" id="updateFacultyDean" class="service-input" />
+
+            <button id="updateFacultyBtn" class="service-btn">Update</button>
+          </form>
+
+          <form class="service-form">
+            <h3 class="service-title">Delete</h3>
+
+            <label class="service-label">Id</label>
+            <input type="text" id="deleteFacultyId" class="service-input" />
+
+            <button type="submit" id="deleteFacultyBtn" class="service-btn">
+              Delete
+            </button>
+          </form>
+
+          <form class="service-form">
+            <h3 class="service-title">Get By Code</h3>
+            <label class="service-label">Code</label>
+            <input type="text" id="getByCodeFaculty" class="service-input" />
+            <button type="submit" id="getByCodeFacultyBtn" class="service-btn">
+              Get by Code
+            </button>
+          </form>
+        </div>
+
+        <div class="service-right">
+          <button class="btn-only" id="getAllFacultyBtn">Get All</button>
+          <div class="service-response" id="responseFaculty"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="service">
+      <h2 class="subtitle">Department</h2>
+
+      <div class="service-container">
+        <div class="service-left">
+          <form class="service-form">
+            <h3 class="service-title">Create</h3>
+
+            <label class="service-label">Faculty Id</label>
+            <input
+              type="text"
+              id="createDepartmentFacultyId"
+              class="service-input"
+            />
+
+            <label class="service-label">Code</label>
+            <input
+              type="text"
+              id="createDepartmentCode"
+              class="service-input"
+            />
+
+            <label class="service-label">Name</label>
+            <input
+              type="text"
+              id="createDepartmentName"
+              class="service-input"
+            />
+
+            <label class="service-label">Director</label>
+            <input
+              type="text"
+              id="createDepartmentDirector"
+              class="service-input"
+            />
+
+            <button id="createDepartmentBtn" class="service-btn">Create</button>
+          </form>
+
+          <form class="service-form">
+            <h3 class="service-title">Update</h3>
+
+            <label class="service-label">Id</label>
+            <input type="text" id="updateDepartmentId" class="service-input" />
+
+            <label class="service-label">Faculty Id</label>
+            <input
+              type="text"
+              id="updateDepartmentFacultyId"
+              class="service-input"
+            />
+
+            <label class="service-label">Code</label>
+            <input
+              type="text"
+              id="updateDepartmentCode"
+              class="service-input"
+            />
+
+            <label class="service-label">Name</label>
+            <input
+              type="text"
+              id="updateDepartmentName"
+              class="service-input"
+            />
+
+            <label class="service-label">Director</label>
+            <input
+              type="text"
+              id="updateDepartmentDirector"
+              class="service-input"
+            />
+
+            <button id="updateDepartmentBtn" class="service-btn">Update</button>
+          </form>
+
+          <form class="service-form">
+            <h3 class="service-title">Delete</h3>
+
+            <label class="service-label">Id</label>
+            <input type="text" id="deleteDepartmentId" class="service-input" />
+
+            <button type="submit" id="deleteDepartmentBtn" class="service-btn">
+              Delete
+            </button>
+          </form>
+
+          <form class="service-form">
+            <h3 class="service-title">Get By Code</h3>
+            <label class="service-label">Code</label>
+            <input type="text" id="getByCodeDepartment" class="service-input" />
+            <button
+              type="submit"
+              id="getByCodeDepartmentBtn"
+              class="service-btn"
+            >
+              Get by Code
+            </button>
+          </form>
+        </div>
+
+        <div class="service-right">
+          <button class="btn-only" id="getAllDepartmentBtn">Get All</button>
+          <div class="service-response" id="responseDepartment"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="service">
+      <h2 class="subtitle">Course</h2>
+
+      <div class="service-container">
+        <div class="service-left">
+          <form class="service-form">
+            <h3 class="service-title">Create</h3>
+
+            <label class="service-label">Department Id</label>
+            <input
+              type="text"
+              id="createCourseDepartmentId"
+              class="service-input"
+            />
+
+            <label class="service-label">Code</label>
+            <input type="text" id="createCourseCode" class="service-input" />
+
+            <label class="service-label">Name</label>
+            <input type="text" id="createCourseName" class="service-input" />
+
+            <button id="createCourseBtn" class="service-btn">Create</button>
+          </form>
+
+          <form class="service-form">
+            <h3 class="service-title">Update</h3>
+
+            <label class="service-label">Id</label>
+            <input type="text" id="updateCourseId" class="service-input" />
+
+            <label class="service-label">Department Id</label>
+            <input
+              type="text"
+              id="updateCourseDepartmentId"
+              class="service-input"
+            />
+
+            <label class="service-label">Code</label>
+            <input type="text" id="updateCourseCode" class="service-input" />
+
+            <label class="service-label">Name</label>
+            <input type="text" id="updateCourseName" class="service-input" />
+
+            <button id="updateCourseBtn" class="service-btn">Update</button>
+          </form>
+
+          <form class="service-form">
+            <h3 class="service-title">Delete</h3>
+
+            <label class="service-label">Id</label>
+            <input type="text" id="deleteCourseId" class="service-input" />
+
+            <button type="submit" id="deleteCourseBtn" class="service-btn">
+              Delete
+            </button>
+          </form>
+
+          <form class="service-form">
+            <h3 class="service-title">Get By Code</h3>
+            <label class="service-label">Code</label>
+            <input type="text" id="getByCodeCourse" class="service-input" />
+            <button type="submit" id="getByCodeCourseBtn" class="service-btn">
+              Get by Code
+            </button>
+          </form>
+        </div>
+
+        <div class="service-right">
+          <button class="btn-only" id="getAllCourseBtn">Get All</button>
+          <div class="service-response" id="responseCourse"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="service">
+      <h2 class="subtitle">Teacher</h2>
+
+      <div class="service-container">
+        <div class="service-left">
+          <form class="service-form">
+            <h3 class="service-title">Create</h3>
+
+            <label class="service-label">Department Id</label>
+            <input
+              type="text"
+              id="createTeacherDepartmentId"
+              class="service-input"
+            />
+
+            <label class="service-label">Document</label>
+            <input
+              type="text"
+              id="createTeacherDocument"
+              class="service-input"
+            />
+
+            <label class="service-label">Name</label>
+            <input type="text" id="createTeacherName" class="service-input" />
+
+            <label class="service-label">Lastname</label>
+            <input
+              type="text"
+              id="createTeacherLastname"
+              class="service-input"
+            />
+
+            <label class="service-label">Email</label>
+            <input type="text" id="createTeacherEmail" class="service-input" />
+
+            <label class="service-label">Phone</label>
+            <input type="text" id="createTeacherPhone" class="service-input" />
+
+            <label class="service-label">Office</label>
+            <input type="text" id="createTeacherOffice" class="service-input" />
+
+            <label class="service-label">Password</label>
+            <input
+              type="text"
+              id="createTeacherPassword"
+              class="service-input"
+            />
+
+            <button id="createTeacherBtn" class="service-btn">Create</button>
+          </form>
+
+          <form class="service-form">
+            <h3 class="service-title">Update</h3>
+
+            <label class="service-label">Id</label>
+            <input type="text" id="updateTeacherId" class="service-input" />
+
+            <label class="service-label">Department Id</label>
+            <input
+              type="text"
+              id="updateTeacherDepartmentId"
+              class="service-input"
+            />
+
+            <label class="service-label">Document</label>
+            <input
+              type="text"
+              id="updateTeacherDocument"
+              class="service-input"
+            />
+
+            <label class="service-label">Name</label>
+            <input type="text" id="updateTeacherName" class="service-input" />
+
+            <label class="service-label">Lastname</label>
+            <input
+              type="text"
+              id="updateTeacherLastname"
+              class="service-input"
+            />
+
+            <label class="service-label">Email</label>
+            <input type="text" id="updateTeacherEmail" class="service-input" />
+
+            <label class="service-label">Phone</label>
+            <input type="text" id="updateTeacherPhone" class="service-input" />
+
+            <label class="service-label">Office</label>
+            <input type="text" id="updateTeacherOffice" class="service-input" />
+
+            <label class="service-label">Old Document</label>
+            <input
+              type="text"
+              id="updateTeacherOldDocument"
+              class="service-input"
+            />
+
+            <label class="service-label">Password</label>
+            <input
+              type="text"
+              id="updateTeacherPassword"
+              class="service-input"
+            />
+
+            <button id="updateTeacherBtn" class="service-btn">Update</button>
+          </form>
+
+          <form class="service-form">
+            <h3 class="service-title">Delete</h3>
+
+            <label class="service-label">Id</label>
+            <input type="text" id="deleteTeacherId" class="service-input" />
+
+            <button type="submit" id="deleteTeacherBtn" class="service-btn">
+              Delete
+            </button>
+          </form>
+
+          <form class="service-form">
+            <h3 class="service-title">Get By Document</h3>
+            <label class="service-label">Document</label>
+            <input
+              type="text"
+              id="getByDocumentTeacher"
+              class="service-input"
+            />
+            <button
+              type="submit"
+              id="getByDocumentTeacherBtn"
+              class="service-btn"
+            >
+              Get by Code
+            </button>
+          </form>
+        </div>
+
+        <div class="service-right">
+          <button class="btn-only" id="getAllTeacherBtn">Get All</button>
+          <div class="service-response" id="responseTeacher"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="service">
+      <h2 class="subtitle">Student</h2>
+
+      <div class="service-container">
+        <div class="service-left">
+          <form class="service-form">
+            <h3 class="service-title">Create</h3>
+
+            <label class="service-label">Code</label>
+            <input type="text" id="createStudentCode" class="service-input" />
+
+            <label class="service-label">Name</label>
+            <input type="text" id="createStudentName" class="service-input" />
+
+            <label class="service-label">Lastname</label>
+            <input
+              type="text"
+              id="createStudentLastname"
+              class="service-input"
+            />
+
+            <label class="service-label">Email</label>
+            <input type="text" id="createStudentEmail" class="service-input" />
+
+            <label class="service-label">Phone</label>
+            <input type="text" id="createStudentPhone" class="service-input" />
+
+            <label class="service-label">Career</label>
+            <input type="text" id="createStudentCareer" class="service-input" />
+
+            <label class="service-label">Password</label>
+            <input
+              type="text"
+              id="createStudentPassword"
+              class="service-input"
+            />
+
+            <button id="createStudentBtn" class="service-btn">Create</button>
+          </form>
+
+          <form class="service-form">
+            <h3 class="service-title">Update</h3>
+
+            <label class="service-label">Id</label>
+            <input type="text" id="updateStudentId" class="service-input" />
+
+            <label class="service-label">Code</label>
+            <input type="text" id="updateStudentCode" class="service-input" />
+
+            <label class="service-label">Name</label>
+            <input type="text" id="updateStudentName" class="service-input" />
+
+            <label class="service-label">Lastname</label>
+            <input
+              type="text"
+              id="updateStudentLastname"
+              class="service-input"
+            />
+
+            <label class="service-label">Email</label>
+            <input type="text" id="updateStudentEmail" class="service-input" />
+
+            <label class="service-label">Phone</label>
+            <input type="text" id="updateStudentPhone" class="service-input" />
+
+            <label class="service-label">Career</label>
+            <input type="text" id="updateStudentCareer" class="service-input" />
+
+            <label class="service-label">Old Code</label>
+            <input
+              type="text"
+              id="updateStudentOldCode"
+              class="service-input"
+            />
+
+            <label class="service-label">Password</label>
+            <input
+              type="text"
+              id="updateStudentPassword"
+              class="service-input"
+            />
+
+            <button id="updateStudentBtn" class="service-btn">Update</button>
+          </form>
+
+          <form class="service-form">
+            <h3 class="service-title">Delete</h3>
+
+            <label class="service-label">Id</label>
+            <input type="text" id="deleteStudentId" class="service-input" />
+
+            <button type="submit" id="deleteStudentBtn" class="service-btn">
+              Delete
+            </button>
+          </form>
+
+          <form class="service-form">
+            <h3 class="service-title">Get By Code</h3>
+            <label class="service-label">Code</label>
+            <input type="text" id="getByCodeStudent" class="service-input" />
+            <button type="submit" id="getByCodeStudentBtn" class="service-btn">
+              Get by Code
+            </button>
+          </form>
+        </div>
+
+        <div class="service-right">
+          <button class="btn-only" id="getAllStudentBtn">Get All</button>
+          <div class="service-response" id="responseStudent"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="service">
+      <h2 class="subtitle">User</h2>
+
+      <div class="service-container">
+        <div class="service-left">
+          <form class="service-form">
+            <h3 class="service-title">Login</h3>
+
+            <label class="service-label">Username</label>
+            <input type="text" id="userLoginUsername" class="service-input" />
+
+            <label class="service-label">Password</label>
+            <input type="text" id="userLoginPassword" class="service-input" />
+
+            <button id="userLoginBtn" class="service-btn">Login</button>
+          </form>
+        </div>
+        <div class="service-right">
+          <button class="btn-only" id="getAllUserBtn">Get All</button>
+          <div class="service-response" id="responseUser"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="service">
+      <h2 class="subtitle">Group</h2>
+
+      <div class="service-container">
+        <div class="service-left">
+          <form class="service-form">
+            <h3 class="service-title">Create</h3>
+
+            <label class="service-label">Course Id</label>
+            <input type="text" id="createGroupCourseId" class="service-input" />
+
+            <label class="service-label">Period Id</label>
+            <input type="text" id="createGroupPeriodId" class="service-input" />
+
+            <label class="service-label">Teacher Id</label>
+            <input
+              type="text"
+              id="createGroupTeacherId"
+              class="service-input"
+            />
+
+            <label class="service-label">Number</label>
+            <input type="number" id="createGroupNumber" class="service-input" />
+
+            <button id="createGroupBtn" class="service-btn">Create</button>
+          </form>
+
+          <form class="service-form">
+            <h3 class="service-title">Update</h3>
+
+            <label class="service-label">Id</label>
+            <input type="text" id="updateGroupId" class="service-input" />
+
+            <label class="service-label">Course Id</label>
+            <input type="text" id="updateGroupCourseId" class="service-input" />
+
+            <label class="service-label">Period Id</label>
+            <input type="text" id="updateGroupPeriodId" class="service-input" />
+
+            <label class="service-label">Teacher Id</label>
+            <input
+              type="text"
+              id="updateGroupTeacherId"
+              class="service-input"
+            />
+
+            <label class="service-label">Number</label>
+            <input type="number" id="updateGroupNumber" class="service-input" />
+
+            <button id="updateGroupBtn" class="service-btn">Update</button>
+          </form>
+
+          <form class="service-form">
+            <h3 class="service-title">Delete</h3>
+
+            <label class="service-label">Id</label>
+            <input type="text" id="deleteGroupId" class="service-input" />
+
+            <button type="submit" id="deleteGroupBtn" class="service-btn">
+              Delete
+            </button>
+          </form>
+
+          <form class="service-form">
+            <h3 class="service-title">Get By Id</h3>
+            <label class="service-label">Id</label>
+            <input type="text" id="getByIdGroup" class="service-input" />
+            <button type="submit" id="getByIdGroupBtn" class="service-btn">
+              Get by Code
+            </button>
+          </form>
+        </div>
+
+        <div class="service-right">
+          <button class="btn-only" id="getAllGroupBtn">Get All</button>
+          <div class="service-response" id="responseGroup"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="service">
+      <h2 class="subtitle">Student Group</h2>
+
+      <div class="service-container">
+        <div class="service-left">
+          <form class="service-form">
+            <h3 class="service-title">Create</h3>
+
+            <label class="service-label">Student Id</label>
+            <input
+              type="text"
+              id="createStudent_GroupStudentId"
+              class="service-input"
+            />
+
+            <label class="service-label">Group Id</label>
+            <input
+              type="text"
+              id="createStudent_GroupGroupId"
+              class="service-input"
+            />
+
+            <button id="createStudent_GroupBtn" class="service-btn">
+              Create
+            </button>
+          </form>
+
+          <form class="service-form">
+            <h3 class="service-title">Update</h3>
+
+            <label class="service-label">Id</label>
+            <input
+              type="text"
+              id="updateStudent_GroupId"
+              class="service-input"
+            />
+
+            <label class="service-label">Student Id</label>
+            <input
+              type="text"
+              id="updateStudent_GroupStudentId"
+              class="service-input"
+            />
+
+            <label class="service-label">Group Id</label>
+            <input
+              type="text"
+              id="updateStudent_GroupGroupId"
+              class="service-input"
+            />
+
+            <button id="updateStudent_GroupBtn" class="service-btn">
+              Update
+            </button>
+          </form>
+
+          <form class="service-form">
+            <h3 class="service-title">Delete</h3>
+
+            <label class="service-label">Student Id</label>
+            <input
+              type="text"
+              id="deleteStudent_GroupStudentId"
+              class="service-input"
+            />
+
+            <label class="service-label">Group Id</label>
+            <input
+              type="text"
+              id="deleteStudent_GroupGroupId"
+              class="service-input"
+            />
+
+            <button
+              type="submit"
+              id="deleteStudent_GroupBtn"
+              class="service-btn"
+            >
+              Delete
+            </button>
+          </form>
+
+          <form class="service-form">
+            <h3 class="service-title">Get By Student Id</h3>
+            <label class="service-label">Student Id</label>
+            <input
+              type="text"
+              id="getByStudentIdStudent_Group"
+              class="service-input"
+            />
+            <button
+              type="submit"
+              id="getByStudentIdStudent_GroupBtn"
+              class="service-btn"
+            >
+              Get by Student Id
+            </button>
+          </form>
+
+          <form class="service-form">
+            <h3 class="service-title">Get By Group Id</h3>
+            <label class="service-label">Group Id</label>
+            <input
+              type="text"
+              id="getByGroupIdStudent_Group"
+              class="service-input"
+            />
+            <button
+              type="submit"
+              id="getByGroupIdStudent_GroupBtn"
+              class="service-btn"
+            >
+              Get by Group Id
+            </button>
+          </form>
+        </div>
+
+        <div class="service-right">
+          <button class="btn-only" id="getAllStudent_GroupBtn">Get All</button>
+          <div class="service-response" id="responseStudent_Group"></div>
+        </div>
+      </div>
+    </section>
+    <script src="/js/logout.js"></script>
+    <script src="/js/globalRequest.js"></script>
+    <script src="/js/apiServices.js"></script>
+  </body>
+</html>

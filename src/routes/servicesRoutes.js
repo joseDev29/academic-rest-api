@@ -12,6 +12,10 @@ const facultyRoutes = require("../apiServices/Faculty/faculty.routes");
 
 const departmentRoutes = require("../apiServices/Department/department.routes");
 
+const groupRoutes = require("../apiServices/Group/group.routes");
+
+const student_groupRoutes = require("../apiServices/Student_Group/student_group.routes");
+
 const indexRouter = (app) => {
   app.use(require("../middleware/verifyToken"));
 
@@ -22,6 +26,8 @@ const indexRouter = (app) => {
   courseRoutes(app);
   facultyRoutes(app);
   departmentRoutes(app);
+  groupRoutes(app);
+  student_groupRoutes(app);
 };
 
 module.exports = indexRouter;

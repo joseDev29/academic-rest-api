@@ -3,6 +3,7 @@ const courseDto = require("./course.dto");
 
 exports.createCourse = (req, res, next) => {
   let course = {
+    department_id: req.body.department_id,
     code: req.body.code,
     name: req.body.name,
   };
@@ -20,6 +21,7 @@ exports.createCourse = (req, res, next) => {
 
 exports.updateCourse = (req, res, next) => {
   let course = {
+    department_id: req.body.department_id,
     code: req.body.code,
     name: req.body.name,
   };

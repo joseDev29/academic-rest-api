@@ -18,5 +18,5 @@ module.exports = {
     student: 1,
     teacher: 2,
   },
-  sessionTime: 3600,
+  sessionTimeInSeconds: Number(process.env.SESSION_TIME_IN_SECONDS) || 86400,
 };

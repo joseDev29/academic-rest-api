@@ -1,6 +1,6 @@
 /** Dto */
 const userDto = require("./user.dto");
-const { DecryptPassword } = require("../../utils/cryptojs");
+const { DecryptPassword, EncryptPassword } = require("../../utils/cryptojs");
 const { GenerateToken } = require("../../utils/jwt");
 
 exports.login = (req, res, next) => {
@@ -54,5 +54,36 @@ exports.deleteUser = () => {
       });
     }
     res.status(204).json();
+  });
+};
+
+exports.createAdmin = (req, res, next) => {
+  const { name, lastname, username, password } = req.body;
+  if (!password) {
+    return res.status(400).json({
+      error: "All fields are required",
+    });
+  }
+  const user = {
+    name,
+    lastname,
+    username,
+    password: EncryptPassword(password),
+    role: 3,
+  };
+
+  userDto.create(user, (err, data) => {
+    if (err) {
+      return res.status(400).json({
+        error: err.message,
+      });
+    }
+
+    res.status(201).json({
+      message: "admin user created",
+      info: {
+        username: data.username,
+      },
+    });
   });
 };

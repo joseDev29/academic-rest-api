@@ -1,32 +1,29 @@
 //Packages
 const express = require("express");
-const bodyParser = require("body-parser");
+const Path = require("path");
 const config = require("./config");
+const cookieParser = require("cookie-parser");
 
 //App Configuration
 const app = express();
 app.set("port", config.server_port);
-
-const jsonParser = bodyParser.json();
-const urlEncodedParser = bodyParser.urlencoded({ extended: true });
-app.use(jsonParser);
-app.use(urlEncodedParser);
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 //Middleware
 const getIpAddress = require("./middleware/getIpAddress");
 app.use("*", getIpAddress);
 
-//Principal Route
-app.get("/", (req, res, next) => {
-  res.send("Welcome to academic rest api");
-});
+//Statics
+app.use(express.static(Path.resolve(__dirname, "./public")));
 
-//Auth Route
-const { login } = require("./apiServices/User/user.controller");
-app.post("/login", login);
+//Auth Routes
+const authRoutes = require("./routes/authRoutes");
+authRoutes(app);
 
-//Index Router
-const routes = require("./routes");
-routes(app);
+//Services Routes
+const servicesRoutes = require("./routes/servicesRoutes");
+servicesRoutes(app);
 
 module.exports = app;

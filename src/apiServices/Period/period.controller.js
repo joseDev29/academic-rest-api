@@ -37,6 +37,29 @@ exports.updatePeriod = (req, res, next) => {
   });
 };
 
+exports.getById = (req, res, next) => {
+  const { id } = req.params;
+
+  periodDto.findOne({ _id: id }, (err, data) => {
+    if (err) {
+      return res.status(400).json({
+        error: err,
+      });
+    }
+
+    if (!data) {
+      return res.status(404).json({
+        error: "period not found",
+      });
+    }
+
+    res.status(200).json({
+      message: "period by id",
+      info: data,
+    });
+  });
+};
+
 exports.getAll = (req, res, next) => {
   periodDto.getAll({}, (err, data) => {
     if (err) {

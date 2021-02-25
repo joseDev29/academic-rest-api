@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { secretkeys } = require("../config");
+const { secretkeys, sessionTimeInSeconds } = require("../config");
 
 const GenerateToken = (user) => {
   let secretKey = secretkeys.jwt;
@@ -13,12 +13,27 @@ const GenerateToken = (user) => {
     },
     secretKey,
     {
-      expiresIn: "10m",
+      expiresIn: sessionTimeInSeconds,
     }
   );
   return token;
 };
 
+const cookieVerifyToken = (token) => {
+  let result = {
+    error: null,
+  };
+
+  try {
+    result.decoded = jwt.verify(token, jwtSecret);
+  } catch (err) {
+    result.error = err;
+  }
+
+  return result;
+};
+
 module.exports = {
   GenerateToken,
+  cookieVerifyToken,
 };

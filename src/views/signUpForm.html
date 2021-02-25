@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In</title>
+    <link rel="stylesheet" href="/css/global.css" />
+  </head>
+  <body>
+    <h1 class="title">Welcome to Academic REST API</h1>
+
+    <main class="main">
+      <h2 class="subtitle">Before starting you must create a user</h2>
+
+      <div id="errorContainer"></div>
+
+      <form class="sign-up" id="signUpForm">
+        <label for="signUpName" class="form-label">Name</label>
+        <input
+          type="text"
+          name="signUpName"
+          id="signUpName"
+          class="form-input"
+          required
+        />
+
+        <label for="signUpLastname" class="form-label">Lastname</label>
+        <input
+          type="text"
+          name="signUpLastname"
+          id="signUpLastname"
+          class="form-input"
+          required
+        />
+
+        <label for="signUpUsername" class="form-label">Username</label>
+        <input
+          type="text"
+          name="signUpUsername"
+          id="signUpUsername"
+          class="form-input"
+          required
+        />
+
+        <label for="signUpPassword" class="form-label">Password</label>
+        <input
+          type="password"
+          name="signUpPassword"
+          id="signUpPassword"
+          class="form-input"
+          required
+        />
+
+        <button type="submit" id="signUpBtn" class="sign-up-btn">
+          Sign Up
+        </button>
+      </form>
+
+      <a href="/" class="sign-up-login-link">Login</a>
+    </main>
+
+    <script src="/js/signUp.js"></script>
+  </body>
+</html>

@@ -71,7 +71,7 @@ exports.deleteFaculty = (req, res, next) => {
       });
     }
     res.status(200).json({
-      message: "Faculty deleted",
+      message: "faculty deleted",
       info: data,
     });
   });

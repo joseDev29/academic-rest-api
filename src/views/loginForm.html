@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Academic REST API</title>
+    <link rel="stylesheet" href="/css/global.css" />
+  </head>
+  <body>
+    <h1 class="title">Welcome to Academic REST API</h1>
+
+    <main class="main">
+      <h2 class="subtitle">Before starting you must log in</h2>
+
+      <div id="errorContainer"></div>
+
+      <form class="login" id="loginForm">
+        <label for="loginUsername" class="form-label">Username</label>
+        <input
+          type="text"
+          name="loginUsername"
+          id="loginUsername"
+          class="form-input"
+        />
+
+        <label for="loginPassword" class="form-label">Password</label>
+        <input
+          type="password"
+          name="loginPassword"
+          id="loginPassword"
+          class="form-input"
+        />
+
+        <button type="submit" id="loginBtn" class="login-btn">Sign Up</button>
+      </form>
+
+      <a href="/signUp/admin" class="login-signup-link">Create user</a>
+    </main>
+
+    <script src="/js/login.js"></script>
+  </body>
+</html>

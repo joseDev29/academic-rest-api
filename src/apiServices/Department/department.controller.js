@@ -27,6 +27,7 @@ exports.updateDepartment = (req, res, next) => {
     name: req.body.name,
     director: req.body.director,
   };
+
   departmentDto.update({ _id: req.body.id }, department, (err, data) => {
     if (err) {
       return res.status(400).json({

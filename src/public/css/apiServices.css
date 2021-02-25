@@ -1,0 +1,95 @@
+.user-admin {
+  display: flex;
+  width: max-content;
+  padding: 15px;
+  margin: 40px 0 0;
+  margin-left: 90px;
+  border: 1px solid #000;
+}
+
+.logout-btn {
+  width: 150px;
+  height: 30px;
+  margin-right: 20px;
+}
+
+.user-admin-username {
+  font-size: 2.4rem;
+  font-weight: 600;
+}
+
+.service {
+  width: 1140px;
+  margin: 50px auto 70px;
+}
+
+.service-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 720px 400px;
+  column-gap: 20px;
+  margin: 30px 0 0;
+}
+
+.service-left {
+  width: 720px;
+  display: grid;
+  grid-template-columns: 350px 350px;
+  column-gap: 20px;
+  row-gap: 20px;
+}
+
+.service-form {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-title {
+  font-size: 1.6rem;
+}
+
+.service-label {
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+.service-input {
+  width: 100%;
+  height: 30px;
+  margin-top: 5px;
+  font-size: 1.4rem;
+}
+
+.service-btn {
+  width: 100%;
+  height: 30px;
+  margin-top: 10px;
+}
+
+.btn-only {
+  width: 150px;
+  height: 30px;
+  margin-bottom: 10px;
+  position: relative;
+  left: calc(50% - 75px);
+}
+
+.service-checkbox {
+  width: 25px;
+  height: 25px;
+}
+
+.service-response {
+  width: 100%;
+  height: calc(100% - 40px);
+  padding: 5px;
+  font-size: 1.5rem;
+  background-color: #000;
+  color: #fff;
+  overflow-x: hidden;
+  overflow-y: auto;
+  word-break: break-word;
+  line-height: 2rem;
+  letter-spacing: 0.2rem;
+}
