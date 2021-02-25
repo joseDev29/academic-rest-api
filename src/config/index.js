@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 module.exports = {
-  server_port: process.env.SERVER_PORT,
+  server_port: process.env.PORT || process.env.SERVER_PORT || 8001,
   db_connections: {
     mongodb: {
       host: process.env.MONGO_HOST,
