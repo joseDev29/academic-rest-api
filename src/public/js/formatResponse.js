@@ -1,5 +1,7 @@
 function formatResponse(object, text) {
   try {
+    if (!object) return text;
+
     if (typeof object !== "object") {
       text += `<div>${object}</div>`;
 
@@ -7,6 +9,8 @@ function formatResponse(object, text) {
     }
 
     const keys = Object.keys(object);
+
+    if (!keys.length) return text;
 
     keys.map((key) => {
       if (typeof object[key] === "object") {
