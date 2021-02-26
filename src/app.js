@@ -11,6 +11,19 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+if (process.env.NODE_ENV === "production") {
+  app.use((req, res, next) => {
+    if (
+      req.protocol !== "https" ||
+      req.header("x-forwarded-proto'") !== "https"
+    ) {
+      res.redirect(`https://${req.hostname}${req.url}`);
+    } else {
+      next();
+    }
+  });
+}
+
 //Middleware
 const getIpAddress = require("./middleware/getIpAddress");
 app.use("*", getIpAddress);
