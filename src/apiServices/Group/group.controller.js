@@ -27,6 +27,12 @@ exports.createGroup = (req, res, next) => {
 exports.updateGroup = (req, res, next) => {
   const { id, course_id, period_id, teacher_id, number } = req.body;
 
+  if (!id || !course_id || !period_id || !teacher_id || !number) {
+    return res.status(400).json({
+      error: "all data is required",
+    });
+  }
+
   const group = {
     course_id,
     period_id,

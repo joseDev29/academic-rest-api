@@ -41,7 +41,6 @@ exports.createStudent = (req, res, next) => {
     userDto.create(user, (errUser, dataUser) => {
       if (errUser) {
         return studentDto.delete({ _id: data._id }, (e, data) => {
-          console.log(`Deleting due to not user creation`);
           return res.status(400).json({
             error: errUser,
           });
@@ -51,6 +50,7 @@ exports.createStudent = (req, res, next) => {
       sendSMS(std.phone);
 
       res.status(201).json({
+        message: "student created",
         info: data,
       });
     });
@@ -58,22 +58,49 @@ exports.createStudent = (req, res, next) => {
 };
 
 exports.updateStudent = (req, res, next) => {
-  if (!req.body.oldcode) {
+  const {
+    id,
+    code,
+    name,
+    lastname,
+    email,
+    phone,
+    career,
+    oldcode,
+    password,
+  } = req.body;
+
+  if (!oldcode) {
     return res.status(400).json({
       error: "oldcode is required",
     });
   }
 
+  if (
+    !id ||
+    !code ||
+    !name ||
+    !lastname ||
+    !email ||
+    !phone ||
+    !career ||
+    !password
+  ) {
+    return res.status(400).json({
+      error: "all data is required",
+    });
+  }
+
   let std = {
-    code: req.body.code,
-    name: req.body.name,
-    lastname: req.body.lastname,
-    email: req.body.email,
-    phone: req.body.phone,
-    career: req.body.career,
+    code,
+    name,
+    lastname,
+    email,
+    phone,
+    career,
   };
 
-  studentDto.update({ _id: req.body.id }, std, (err, data) => {
+  studentDto.update({ _id: id }, std, (err, data) => {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -91,38 +118,29 @@ exports.updateStudent = (req, res, next) => {
       name: std.name,
       lastname: std.lastname,
       username: std.code,
+      password: EncryptPassword(password),
       role,
     };
 
-    if (req.body.password) {
-      user = {
-        ...user,
-        password: EncryptPassword(req.body.password),
-      };
-    }
-
-    userDto.update(
-      { username: req.body.oldcode },
-      user,
-      (errUser, dataUser) => {
-        if (errUser) {
-          return res.status(400).json({
-            error: errUser,
-          });
-        }
-
-        if (!dataUser) {
-          return res.status(404).json({
-            error: "user not found",
-          });
-        }
-
-        sendSMS(std.phone);
-        return res.status(201).json({
-          info: data,
+    userDto.update({ username: oldcode }, user, (errUser, dataUser) => {
+      if (errUser) {
+        return res.status(400).json({
+          error: errUser,
         });
       }
-    );
+
+      if (!dataUser) {
+        return res.status(404).json({
+          error: "user not found",
+        });
+      }
+
+      sendSMS(std.phone);
+      return res.status(201).json({
+        message: "student updated",
+        info: data,
+      });
+    });
   });
 };
 
@@ -134,6 +152,7 @@ exports.getAll = (req, res, next) => {
       });
     }
     res.status(200).json({
+      message: "all students",
       info: data,
     });
   });
@@ -153,6 +172,7 @@ exports.getByCode = (req, res, next) => {
       });
     }
     res.status(200).json({
+      message: "student by code",
       info: data,
     });
   });

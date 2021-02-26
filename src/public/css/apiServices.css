@@ -110,15 +110,18 @@
 .service-response {
   width: 100%;
   height: calc(100% - 45px);
-  padding: 8px;
+  max-height: 500px;
+  padding: 5px;
   border: none;
   border-radius: 8px;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: auto;
   font-size: 1.5rem;
-  word-break: break-word;
   line-height: 2rem;
   letter-spacing: 0.2rem;
   background-color: #333333;
   color: #fff;
+}
+
+.service-response div {
+  margin-left: 5px;
 }
