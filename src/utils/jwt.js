@@ -20,14 +20,14 @@ const GenerateToken = (user) => {
 };
 
 const cookieVerifyToken = (token) => {
-  let result = {
-    error: null,
-  };
+  let result = {};
 
   try {
-    result.decoded = jwt.verify(token, jwtSecret);
-  } catch (err) {
-    result.error = err;
+    result.decoded = jwt.verify(token, secretkeys.jwt);
+  } catch (error) {
+    result = {
+      error,
+    };
   }
 
   return result;

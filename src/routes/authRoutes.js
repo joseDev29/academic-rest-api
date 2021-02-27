@@ -14,7 +14,7 @@ const authRoutes = (app) => {
 
     const verification = cookieVerifyToken(token);
 
-    if (!verification) {
+    if (!verification.decoded) {
       return res.redirect("/login");
     }
 
@@ -27,7 +27,7 @@ const authRoutes = (app) => {
     if (token) {
       const verification = cookieVerifyToken(token);
 
-      if (verification) {
+      if (verification.decoded) {
         return res.redirect("/");
       }
     }
@@ -40,7 +40,7 @@ const authRoutes = (app) => {
     if (token) {
       const verification = cookieVerifyToken(token);
 
-      if (verification) {
+      if (verification.decoded) {
         return res.redirect("/");
       }
     }
